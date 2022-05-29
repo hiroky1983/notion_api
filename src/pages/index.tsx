@@ -1,5 +1,6 @@
 import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { databaseId, notion } from "../libs/notion";
 
 type Props = {
@@ -19,7 +20,11 @@ const Home: NextPage<Props> = ({ response, props }) => {
       <main>
         <ul>
           {props.map((prop) => (
-            <li key={prop.id}>{prop.name}</li>
+            <li key={prop.id}>
+              <Link href={`/contents/${prop.id}`}>
+                <a>{prop.name}</a>
+              </Link>
+            </li>
           ))}
         </ul>
       </main>
