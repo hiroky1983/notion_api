@@ -16,8 +16,7 @@ export const getNotionQuery = async () => {
 };
 
 //pageIdの取得
-
-export const getNotionApiForId = async (): Promise<IdProps[]> => {
+export const getNotionApiForId = async () => {
   const data = await getNotionQuery();
   const result = data.results;
 
@@ -27,7 +26,7 @@ export const getNotionApiForId = async (): Promise<IdProps[]> => {
     return tagName;
   });
 
-  const newTags = tags.filter(
+  const newTags: IdProps[] = tags.filter(
     (element, index, self) =>
       self.findIndex((e) => e.id === element.id) === index
   );
