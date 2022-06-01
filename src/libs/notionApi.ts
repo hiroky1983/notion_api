@@ -1,4 +1,5 @@
 import { databaseId, notion } from "./notion";
+import { IdProps } from "./type";
 
 //notionのqueryを取得する
 export const getNotionQuery = async () => {
@@ -15,7 +16,8 @@ export const getNotionQuery = async () => {
 };
 
 //pageIdの取得
-export const getNotionApiForId = async () => {
+
+export const getNotionApiForId = async (): Promise<IdProps[]> => {
   const data = await getNotionQuery();
   const result = data.results;
 

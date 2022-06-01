@@ -1,18 +1,13 @@
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { getNotionApiForId } from "../libs/notionApi";
+import { IdProps } from "../libs/type";
 
 type Props = {
-  props: {
-    id: string;
-    name: string;
-    color: string;
-  }[];
+  props: IdProps[];
 };
 
 const Home: NextPage<Props> = ({ props }) => {
-  console.log(props);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main>
