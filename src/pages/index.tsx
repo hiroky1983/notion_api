@@ -1,6 +1,10 @@
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { getNotionApiForId } from "../libs/notionApi";
+import {
+  getNotionApiForId,
+  getNotionApiForLanguage,
+  getNotionQuery,
+} from "../libs/notionApi";
 import { IdProps } from "../libs/type";
 
 type Props = {
@@ -28,6 +32,9 @@ const Home: NextPage<Props> = ({ props }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const tags = await getNotionApiForId();
 
+  const data = await getNotionQuery();
+  const result = data.results;
+  await getNotionApiForLanguage();
   return {
     props: {
       props: tags,

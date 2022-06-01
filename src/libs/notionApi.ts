@@ -32,3 +32,15 @@ export const getNotionApiForId = async () => {
   );
   return newTags;
 };
+
+export const getNotionApiForLanguage = async () => {
+  const data = await getNotionQuery();
+  const result = data.results;
+
+  const tags = result.map((cur: any) => {
+    const langJa = cur.properties["Name_ja"];
+    return langJa;
+  });
+  console.log(tags);
+  return tags;
+};
