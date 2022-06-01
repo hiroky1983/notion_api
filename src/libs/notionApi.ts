@@ -1,6 +1,7 @@
 import { databaseId, notion } from "./notion";
 
-export const getNotionApiForId = async () => {
+//notionのqueryを取得する
+export const getNotionQuery = async () => {
   const data = await notion.databases.query({
     database_id: databaseId || "",
     sorts: [
@@ -10,6 +11,12 @@ export const getNotionApiForId = async () => {
       },
     ],
   });
+  return data;
+};
+
+//pageIdの取得
+export const getNotionApiForId = async () => {
+  const data = await getNotionQuery();
   const result = data.results;
 
   const tags = result.map((cur: any) => {
