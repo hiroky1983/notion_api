@@ -1,10 +1,8 @@
-import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { databaseId, notion } from "../libs/notion";
+import { getNotionApiForId } from "../libs/notionApi";
 
 type Props = {
-  response: QueryDatabaseResponse;
   props: {
     id: string;
     name: string;
@@ -12,7 +10,7 @@ type Props = {
   }[];
 };
 
-const Home: NextPage<Props> = ({ response, props }) => {
+const Home: NextPage<Props> = ({ props }) => {
   console.log(props);
 
   return (
@@ -33,32 +31,11 @@ const Home: NextPage<Props> = ({ response, props }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await notion.databases.query({
-    database_id: databaseId || "",
-    sorts: [
-      {
-        property: "created_at",
-        direction: "ascending",
-      },
-    ],
-  });
-  const result = data.results;
-
-  const tags = result.map((cur: any) => {
-    const tag = cur.properties["ジャンル"];
-    const tagName = tag.multi_select[0];
-    return tagName;
-  });
-
-  const newTags = tags.filter(
-    (element, index, self) =>
-      self.findIndex((e) => e.id === element.id) === index
-  );
+  const tags = await getNotionApiForId();
 
   return {
     props: {
-      response: data,
-      props: newTags,
+      props: tags,
     },
   };
 };

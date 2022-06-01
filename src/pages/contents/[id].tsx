@@ -1,15 +1,13 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { databaseId, notion } from "../../libs/notion";
+import { getNotionApiForId } from "../../libs/notionApi";
 
 const contents: NextPage = ({ id }: any) => {
   return (
     <>
       <div>
         <Link href="/">
-          <a>
-            戻る
-          </a>
+          <a>戻る</a>
         </Link>
         <h1>contents</h1>
         <p>{id}</p>
@@ -19,29 +17,8 @@ const contents: NextPage = ({ id }: any) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await notion.databases.query({
-    database_id: databaseId || "",
-    sorts: [
-      {
-        property: "created_at",
-        direction: "ascending",
-      },
-    ],
-  });
-  const result = data.results;
-
-  const tags = result.map((cur: any) => {
-    const tag = cur.properties["ジャンル"];
-    const tagName = tag.multi_select[0];
-    return tagName;
-  });
-
-  const newTags = tags.filter(
-    (element, index, self) =>
-      self.findIndex((e) => e.id === element.id) === index
-  );
-
-  const paths = newTags.map((tag) => `/contents/${tag.id}`);
+  const tags = await getNotionApiForId();
+  const paths = tags.map((tag) => `/contents/${tag.id}`);
 
   return {
     paths,
