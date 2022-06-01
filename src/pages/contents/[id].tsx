@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { databaseId, notion } from "../../libs/notion";
 
-const contents: NextPage = ({ id }) => {
+const contents: NextPage = ({ id }: any) => {
   return (
     <>
       <div>

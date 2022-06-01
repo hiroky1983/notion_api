@@ -20,7 +20,7 @@ const Home: NextPage<Props> = ({ response, props }) => {
       <main>
         <ul>
           {props.map((prop) => (
-            <li key={prop.id}>
+            <li key={prop.id} className="hover:opacity-60">
               <Link href={`/contents/${prop.id}`}>
                 <a>{prop.name}</a>
               </Link>
