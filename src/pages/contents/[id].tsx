@@ -1,10 +1,16 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { databaseId, notion } from "../../libs/notion";
 
 const contents: NextPage = ({ id }: any) => {
   return (
     <>
       <div>
+        <Link href="/">
+          <a>
+            戻る
+          </a>
+        </Link>
         <h1>contents</h1>
         <p>{id}</p>
       </div>
