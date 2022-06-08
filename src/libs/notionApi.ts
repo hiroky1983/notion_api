@@ -1,3 +1,4 @@
+import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import { databaseId, notion } from "./notion";
 import { IdProps } from "./type";
 
@@ -33,23 +34,24 @@ export const getNotionApiForId = async () => {
   return newTags;
 };
 
-export const getNotionApiForLangJa = async () => {
+export const getNotionApiFillterProperties = async (id: string) => {
   const data = await getNotionQuery();
   const result = data.results;
-
-  const resultData = result.map((cur: any) => {
-    const langJa = cur.properties["Name_ja"];
-    return langJa;
+  const properties = result.filter((prop: any) => {
+    const data = prop.properties;
+    const tag = data["ジャンル"];
+    const tagId = tag.multi_select[0].id;
+    return tagId === id;
   });
-  return resultData;
+  return properties;
 };
-export const getNotionApiForLangVi = async () => {
-  const data = await getNotionQuery();
-  const result = data.results;
 
-  const resultData = result.map((cur: any) => {
-    const langVi = cur.properties["Name_vi"];
-    return langVi;
+export const getNotionApiNewObject = async (props: any) => {
+  const result = props;
+  const newObject = result.map((cur: any) => {
+    const id = cur.id;
+    const properties = cur.properties;
+    return { id, properties };
   });
-  return resultData;
+  return newObject;
 };

@@ -1,12 +1,17 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import {
+  getNotionApiFillterProperties,
   getNotionApiForId,
-  getNotionApiForLangJa,
-  getNotionApiForLangVi,
+  getNotionApiNewObject,
 } from "../../libs/notionApi";
 
-const contents: NextPage = ({ id, langJa, langVi }: any) => {
+const contents: NextPage = ({ id, data }: any) => {
+  const proparties = data.map((prop: any) => {
+    return prop.properties;
+  });
+
+  console.log(proparties);
   return (
     <>
       <div>
@@ -14,15 +19,14 @@ const contents: NextPage = ({ id, langJa, langVi }: any) => {
           <a>戻る</a>
         </Link>
         <h1>contents</h1>
-        <p>{id}</p>
-        <div>
-          {langVi.map((item: any) => (
-            <p key={item.id}>{item.title[0].plain_text}</p>
-          ))}
-          {langJa.map((item: any) => (
-            <p key={item.id}>{item.rich_text[0].plain_text}</p>
-          ))}
-        </div>
+        {proparties.map((prop: any) => (
+          <ul key={prop.id}>
+            <li className="flex">
+              <p>{prop.Name_vi.title[0].plain_text}</p>
+              <p>{prop.Name_ja.rich_text[0].plain_text}</p>
+            </li>
+          </ul>
+        ))}
       </div>
     </>
   );
@@ -39,15 +43,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const id = ctx.params?.id;
-  const langJa = await getNotionApiForLangJa();
-  const langVi = await getNotionApiForLangVi();
-
+  const id = ctx.params?.id as string;
+  const propaties = await getNotionApiFillterProperties(id);
+  const data = await getNotionApiNewObject(propaties);
   return {
     props: {
       id,
-      langJa,
-      langVi,
+      data,
     },
   };
 };

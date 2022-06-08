@@ -27,7 +27,6 @@ const Home: NextPage<Props> = ({ props }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const tags = await getNotionApiForId();
-
   return {
     props: {
       props: tags,
