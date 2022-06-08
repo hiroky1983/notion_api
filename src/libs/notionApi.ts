@@ -1,4 +1,3 @@
-import { QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 import { databaseId, notion } from "./notion";
 import { IdProps } from "./type";
 
@@ -26,7 +25,6 @@ export const getNotionApiForId = async () => {
     const tagName = tag.multi_select[0];
     return tagName;
   });
-
   const newTags: IdProps[] = tags.filter(
     (element, index, self) =>
       self.findIndex((e) => e.id === element.id) === index
@@ -34,6 +32,7 @@ export const getNotionApiForId = async () => {
   return newTags;
 };
 
+//pageIdにあったpropatieを返す
 export const getNotionApiFillterProperties = async (id: string) => {
   const data = await getNotionQuery();
   const result = data.results;
@@ -46,6 +45,7 @@ export const getNotionApiFillterProperties = async (id: string) => {
   return properties;
 };
 
+//オブジェクトの型を簡略化する
 export const getNotionApiNewObject = async (props: any) => {
   const result = props;
   const newObject = result.map((cur: any) => {

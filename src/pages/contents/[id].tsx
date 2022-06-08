@@ -6,23 +6,20 @@ import {
   getNotionApiNewObject,
 } from "../../libs/notionApi";
 
-const contents: NextPage = ({ id, data }: any) => {
+const contents: NextPage = ({ data }: any) => {
   const proparties = data.map((prop: any) => {
     return prop.properties;
   });
-
-  console.log(proparties);
   return (
     <>
       <div>
         <Link href="/">
           <a>戻る</a>
         </Link>
-        <h1>contents</h1>
         {proparties.map((prop: any) => (
-          <ul key={prop.id}>
+          <ul className="p-4" key={prop.id}>
             <li className="flex">
-              <p>{prop.Name_vi.title[0].plain_text}</p>
+              <p className="pr-4">{prop.Name_vi.title[0].plain_text}</p>
               <p>{prop.Name_ja.rich_text[0].plain_text}</p>
             </li>
           </ul>
