@@ -1,10 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import {
-  getNotionApiForId,
-  getNotionApiForLangja,
-  getNotionApiForLangvi,
-} from "../libs/notionApi";
+import { getNotionApiForId } from "../libs/notionApi";
 import { IdProps } from "../libs/type";
 
 type Props = {

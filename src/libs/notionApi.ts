@@ -33,7 +33,7 @@ export const getNotionApiForId = async () => {
   return newTags;
 };
 
-export const getNotionApiForLangja = async () => {
+export const getNotionApiForLangJa = async () => {
   const data = await getNotionQuery();
   const result = data.results;
 
@@ -43,7 +43,7 @@ export const getNotionApiForLangja = async () => {
   });
   return resultData;
 };
-export const getNotionApiForLangvi = async () => {
+export const getNotionApiForLangVi = async () => {
   const data = await getNotionQuery();
   const result = data.results;
 
