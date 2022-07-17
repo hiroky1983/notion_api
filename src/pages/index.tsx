@@ -13,7 +13,7 @@ const Home: NextPage<Props> = ({ props }) => {
       <main>
         <ul>
           {props.map((prop) => (
-            <li key={prop.id} className="hover:opacity-60">
+            <li key={prop.id} className="hover:opacity-60 text-blue-500">
               <Link href={`/contents/${prop.id}`}>
                 <a>{prop.name}</a>
               </Link>
