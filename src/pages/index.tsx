@@ -12,6 +12,11 @@ const Home: NextPage<Props> = ({ props }) => {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main>
         <ul>
+          <li key={""} className="hover:opacity-60 text-blue-500">
+            <Link href="/basic">
+              <a>まずは基礎知識から</a>
+            </Link>
+          </li>
           {props.map((prop) => (
             <li key={prop.id} className="hover:opacity-60 text-blue-500">
               <Link href={`/contents/${prop.id}`}>
